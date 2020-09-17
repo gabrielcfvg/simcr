@@ -15,19 +15,18 @@ void Coelho::process(MAPA* mapa) {
 
     if (std::get<0>(tmp)) {
 
-        delete (*mapa)[std::get<1>(tmp)][std::get<2>(tmp)];
-        (*mapa)[std::get<1>(tmp)][std::get<2>(tmp)] = (*mapa)[this->x][this->y];
+        (*mapa)[std::get<1>(tmp)][std::get<2>(tmp)] = std::move((*mapa)[this->x][this->y]);
 
         if (this->filho == true) {
-            (*mapa)[this->x][this->y] = new Coelho{this->x, this->y};
+            (*mapa)[this->x][this->y] = std::make_unique<Coelho>(this->x, this->y);
             this->filho = false;
             this->age = get_GER_PROC_COELHOS();
-            //printf("FILHO\n");
+
         }
         else {
-            (*mapa)[this->x][this->y] = new Entidade{this->x, this->y};
+            (*mapa)[this->x][this->y] = std::make_unique<Entidade>(this->x, this->y);
             this->age -= 1;
-            //printf("NÂO FILHO\n");
+
         }
 
         this->estabelecido = false;

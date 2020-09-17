@@ -16,24 +16,23 @@ void Raposa::process(MAPA* mapa) {
     }
 
     if (this->fome == 0) {
-        (*mapa)[this->x][this->y] = new Entidade{this->x, this->y};
+        (*mapa)[this->x][this->y] = std::make_unique<Entidade>(this->x, this->y);
         printf("RAPOSA MORREU\n");
-        delete this;
     };
 
     if (std::get<0>(tmp)) {
 
-        delete (*mapa)[std::get<1>(tmp)][std::get<2>(tmp)];
-        (*mapa)[std::get<1>(tmp)][std::get<2>(tmp)] = (*mapa)[this->x][this->y];
+        //delete (*mapa)[std::get<1>(tmp)][std::get<2>(tmp)];
+        (*mapa)[std::get<1>(tmp)][std::get<2>(tmp)] = std::move((*mapa)[this->x][this->y]);
 
         if (this->filho == true) {
-            (*mapa)[this->x][this->y] = new Raposa{this->x, this->y};
+            (*mapa)[this->x][this->y] = std::make_unique<Raposa>(this->x, this->y);
             this->filho = false;
             this->age = get_GER_PROC_RAPOSAS();
             //printf("FILHO\n");
         }
         else {
-            (*mapa)[this->x][this->y] = new Entidade{this->x, this->y};
+            (*mapa)[this->x][this->y] = std::make_unique<Entidade>(this->x, this->y);
             this->age -= 1;
             //printf("NÂO FILHO\n");
         }
@@ -82,7 +81,11 @@ std::tuple<bool, int, int> Raposa::escolher_lado(MAPA* mapa) {
                 }
                 case TileObject::Vazio: {
                     poss_vazio[idx] = std::make_tuple(true, x, y);
+                    break;
                 }
+                default:
+                    break;
+
             }
         }
     };

@@ -9,7 +9,9 @@ Entidade::Entidade(int x, int y) {
     this->tipo = TileObject::Vazio;
 };
 
-void Entidade::process(MAPA* mapa) {};
+void Entidade::process(MAPA* mapa) {
+    (void)mapa;
+};
 
 void Entidade::set_pos(int x, int y) {
     this->x = x;
@@ -21,5 +23,7 @@ Rocha::Rocha(int x, int y): Entidade(x, y) {
     this->tipo = TileObject::Rocha;
 };
 
-void Rocha::process(MAPA* mapa) {};
+void Rocha::process(MAPA* mapa) {
+    (void)mapa;
+};
 

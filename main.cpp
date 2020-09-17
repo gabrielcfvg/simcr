@@ -1,16 +1,10 @@
-#include <cstdio>
-#include <cstdlib>
-#include <time.h>
-#include <vector>
 #include <iostream>
-#include <tuple>
 #include <string>
 
 #include "headers/main.hpp"
 #include "headers/entidade.hpp"
 #include "headers/coelho.hpp"
 #include "headers/raposa.hpp"
-
 
 const char *TileRepr[] = {
     "Raposa",
@@ -94,14 +88,13 @@ int main() {
     // #       PROCESSAMENTO      #
     // ############################
 
-    srand(time(NULL));
-
-    std::vector<std::vector<Entidade*>> mapa(SIZE_X, std::vector<Entidade*>(SIZE_Y, new Entidade(0, 0)));
+    MAPA mapa {};
     ptr_mapa = &mapa;
 
     for (int i = 0; i < SIZE_X; i++) {
+        mapa.push_back(std::vector<std::unique_ptr<Entidade>>{});
         for (int j = 0; j < SIZE_Y; j++) {
-            mapa[i][j] = new Entidade{i, j};
+            mapa[i].push_back(std::make_unique<Entidade>(i, j));
         }
     }
 
@@ -111,15 +104,15 @@ int main() {
 
         switch (std::get<0>(i)) {
             case TileObject::Coelho: {
-                mapa[x][y] = new Coelho{x, y};
+                mapa[x][y] = std::make_unique<Coelho>(x, y);
                 break;
             }
             case TileObject::Raposa: {
-                mapa[x][y] = new Raposa{x, y};
+                mapa[x][y] = std::make_unique<Raposa>(x, y);
                 break;
             }
             case TileObject::Rocha: {
-                mapa[x][y] = new Rocha{x, y};
+                mapa[x][y] = std::make_unique<Rocha>(x, y);
                 break;
             }
             case TileObject::Vazio: {

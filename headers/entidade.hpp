@@ -3,8 +3,9 @@
 
 #include <tuple>
 #include <vector>
+#include <memory>
 
-#define MAPA std::vector<std::vector<Entidade*>>
+#define MAPA std::vector<std::vector<std::unique_ptr<Entidade>>>
 
 enum class TileObject {
     Raposa,
