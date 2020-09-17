@@ -4,6 +4,7 @@
 #include <tuple>
 #include <vector>
 #include <memory>
+#include <cstdio>
 
 #define MAPA std::vector<std::vector<std::unique_ptr<Entidade>>>
 
