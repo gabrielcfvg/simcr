@@ -7,11 +7,11 @@ Entidade::Entidade(int x, int y) {
     this->age = 666;
     this->fome = get_GER_ALIM_RAPOSAS();
     this->tipo = TileObject::Vazio;
-};
+}
 
 void Entidade::process(MAPA* mapa) {
     (void)mapa;
-};
+}
 
 void Entidade::set_pos(int x, int y) {
     this->x = x;
@@ -21,9 +21,9 @@ void Entidade::set_pos(int x, int y) {
 
 Rocha::Rocha(int x, int y): Entidade(x, y) {
     this->tipo = TileObject::Rocha;
-};
+}
 
 void Rocha::process(MAPA* mapa) {
     (void)mapa;
-};
+}
 
